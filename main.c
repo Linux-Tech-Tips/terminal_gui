@@ -4,8 +4,14 @@
 #include "esc_func.h"
 
 int main() {
-    printf("Hello World, program works!\n");
-    char * escape = getEscape();
-    printf("%s[;31mTHIS TEXT IS RED OMG%s[0m\n", escape, escape);
+    printf("Program start\n");
+	char red [10];
+	strncpy(red, getEscape(), strlen(red));
+	strcat(red, "[;31m");
+	char reset [10];
+	strncpy(reset, getEscape(), strlen(reset));
+	strcat(reset, "[0m");
+    printf("%sTHIS TEXT IS RED OMG%s\n", red, reset);
+	printf("Program end\n");
     return 0;
 }

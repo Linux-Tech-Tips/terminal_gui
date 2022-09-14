@@ -1,5 +1,5 @@
 #include "esc_func.h"
 
-char * getEscape() {
+const char * getEscape() {
     return "\x1b";
 };

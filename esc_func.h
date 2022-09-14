@@ -1,6 +1,6 @@
 #ifndef ESC_FUNC_H
 #define ESC_FUNC_H
 
-char * getEscape();
+const char * getEscape();
 
 #endif
