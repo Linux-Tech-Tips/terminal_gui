@@ -1,17 +1,13 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 
 #include "esc_func.h"
 
 int main() {
-    printf("Program start\n");
-	char red [10];
-	strncpy(red, getEscape(), strlen(red));
-	strcat(red, "[;31m");
-	char reset [10];
-	strncpy(reset, getEscape(), strlen(reset));
-	strcat(reset, "[0m");
-    printf("%sTHIS TEXT IS RED OMG%s\n", red, reset);
-	printf("Program end\n");
+    modeSet(STYLE_BOLD, FG_BLACK, BG_CYAN);
+    printf("\n\n   TEXT IN CYAN BACKGROUND EXAMPLE\n");
+    modeReset();
+    printf("\n");
     return 0;
 }
