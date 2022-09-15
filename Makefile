@@ -5,6 +5,7 @@ BUILD_DIR=build
 SRC=main.c
 SRC+=esc_func.c
 OUTFILE=output.elf
+ASMFILE=code.asmdump
 
 OBJ=$(SRC:%=$(BUILD_DIR)/%.o)
 
@@ -17,7 +18,7 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(CC) -c $^ -o $@
 
 
-.PHONY: dirs, compile, link, clean
+.PHONY: dirs, compile, link, disassemble, clean
 dirs:
 	mkdir -p $(BUILD_DIR)
 
@@ -25,6 +26,10 @@ compile: $(OBJ)
 
 link: $(OUTFILE)
 
+disassemble:
+	objdump -d $(OUTFILE) > $(ASMFILE)
+
 clean:
 	rm -r $(BUILD_DIR)
-	rm $(OUTFILE)
+	rm -f $(OUTFILE)
+	rm -f $(ASMFILE)

@@ -32,6 +32,11 @@ extern const int STYLE_BLINKING;
 extern const int STYLE_REVERSE;
 extern const int STYLE_HIDDEN;
 extern const int STYLE_STRIKETHROUGH;
+// DIRECTIONS
+extern const char UP;
+extern const char DOWN;
+extern const char LEFT;
+extern const char RIGHT;
 
 /* Prints out the escape character into the console */
 void escape(bool withBracket);
@@ -41,5 +46,20 @@ void modeReset();
 
 /* Sets the mode */
 void modeSet(int style, int fgColor, int bgColor);
+
+/* Sets a 256 color mode */
+void mode256Color(bool bg, int colorCode);
+
+/* Erases the screen */
+void erase();
+
+/* Move cursor to home position (0,0) */
+void cursorHome();
+
+/* Move cursor to specified line and column */
+void cursorMoveTo(int line, int column);
+
+/* Move cursor by the specified amount in the set dir */
+void cursorMoveBy(char dir, int amount);
 
 #endif

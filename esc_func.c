@@ -34,6 +34,12 @@ const int STYLE_BLINKING = 5;
 const int STYLE_REVERSE = 7;
 const int STYLE_HIDDEN = 8;
 const int STYLE_STRIKETHROUGH = 9;
+// DIRS
+const char UP = 'A';
+const char DOWN = 'B';
+const char LEFT = 'D';
+const char RIGHT = 'C';
+
 
 /* Prints out the escape character into the console */
 void escape(bool withBracket) {
@@ -56,3 +62,36 @@ void modeSet(int style, int fgColor, int bgColor) {
     if(bgColor != NO_CODE) printf(";%i", bgColor);
     printf("m");
 }
+
+/* Sets a 256 color mode */
+void mode256Color(bool bg, int colorCode) {
+	escape(true);
+	int mode = bg ? 48 : 38;
+	printf("%i;5;%im", mode, colorCode);
+}
+
+/* Erases the screen */
+void erase() {
+	escape(true);
+	printf("2J");
+}
+
+/* Move cursor to home position (0,0) */
+void cursorHome() {
+	escape(true);
+	printf("H");
+}
+
+/* Move cursor to specified line and column */
+void cursorMoveTo(int line, int column) {
+	escape(true);
+	printf("%i;%iH", line, column);
+}
+
+/* Move cursor by the specified amount in the set dir */
+void cursorMoveBy(char dir, int amount) {
+	escape(true);
+	printf("%i%c", amount, dir);
+}
+
+
