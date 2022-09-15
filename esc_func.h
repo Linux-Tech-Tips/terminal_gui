@@ -62,4 +62,7 @@ void cursorMoveTo(int line, int column);
 /* Move cursor by the specified amount in the set dir */
 void cursorMoveBy(char dir, int amount);
 
+/* Gets the current cursor position */
+void cursorGetPos(int * x, int * y);
+
 #endif

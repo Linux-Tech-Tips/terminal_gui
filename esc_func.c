@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "esc_func.h"
 
@@ -94,4 +95,10 @@ void cursorMoveBy(char dir, int amount) {
 	printf("%i%c", amount, dir);
 }
 
+/* Gets the current cursor position */
+void cursorGetPos(int * x, int * y) {
+    escape(true);
+    printf("6n");
+    // TODO Finish this part, use pipe() and dup() as the ANSI code just throws the thing straight into stdout
+}
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "esc_func.h"
 
@@ -19,5 +20,11 @@ int main() {
 	printf("MORE TEXT");
 	modeReset();
     printf("\n");
+
+    int x = 0;
+    int y = 0;
+    cursorGetPos(&x, &y);
+    printf("test: %i, %i \n", x, y);
+
     return 0;
 }
