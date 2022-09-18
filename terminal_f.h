@@ -37,9 +37,18 @@ extern const char UP;
 extern const char DOWN;
 extern const char LEFT;
 extern const char RIGHT;
+// LINE ERASE TYPES
+extern const int LINE_TO_END;
+extern const int LINE_FROM_START;
+extern const int LINE_ALL;
+
+// TERMINAL FUNCTIONS
 
 /* Prints out the escape character into the console */
 void escape(bool withBracket);
+
+/* Prints out an escape sequence, starting with the escape character, then an open bracket, followed with the input text */
+void escape2(char * text);
 
 /* Resets all modes (styles and colors) */
 void modeReset();
@@ -53,16 +62,25 @@ void mode256Color(bool bg, int colorCode);
 /* Erases the screen */
 void erase();
 
+/* Erases on the current line, according to the specified variable */
+void eraseLine(int lineType);
+
 /* Move cursor to home position (0,0) */
 void cursorHome();
 
-/* Move cursor to specified line and column */
-void cursorMoveTo(int line, int column);
+/* Move cursor to specified column and line (x, y) */
+void cursorMoveTo(int column, int line);
 
 /* Move cursor by the specified amount in the set dir */
 void cursorMoveBy(char dir, int amount);
 
-/* Gets the current cursor position */
-void cursorGetPos(int * x, int * y);
+/* Gets terminal dimensions from the kernel, works even if terminal window is resized */
+void getTerminalSize(int * x, int * y);
+
+void cursorHide();
+void cursorShow();
+
+void screenSave();
+void screenRestore();
 
 #endif

@@ -3,7 +3,8 @@ LN=gcc
 BUILD_DIR=build
 
 SRC=main.c
-SRC+=esc_func.c
+SRC+=terminal_f.c
+
 OUTFILE=output.elf
 ASMFILE=code.asmdump
 
@@ -12,7 +13,7 @@ OBJ=$(SRC:%=$(BUILD_DIR)/%.o)
 all: dirs compile link
 
 $(OUTFILE): $(OBJ)
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ -lm
 
 $(BUILD_DIR)/%.c.o: %.c
 	$(CC) -c $^ -o $@
