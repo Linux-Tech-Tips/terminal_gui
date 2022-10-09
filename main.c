@@ -12,8 +12,10 @@
 
 static volatile bool run = true;
 
+static int pSigID;
+
 void signalHandle(int sigID) {
-	printf("Captured signal %i", sigID);
+	pSigID = sigID;
 	run = false;
 }
 
@@ -27,10 +29,41 @@ void update() {
 	modeSet(NO_CODE, NO_CODE, BG_RED);
 	cursorHome();
 	cursorMoveTo(termX/2, termY/2);
-	if(now % 2 == 0)
+	switch(now % 8) {
+		case 0:
+			cursorMoveBy(UP, 1);
+			break;
+		case 1:
+			cursorMoveBy(UP, 1);
+			cursorMoveBy(LEFT, 1);
+			break;
+		case 2:
+			cursorMoveBy(LEFT, 1);
+			break;
+		case 3:
+			cursorMoveBy(LEFT, 1);
+			cursorMoveBy(DOWN, 1);
+			break;
+		case 4:
+			cursorMoveBy(DOWN, 1);
+			break;
+		case 5:
+			cursorMoveBy(DOWN, 1);
+			cursorMoveBy(RIGHT, 1);
+			break;
+		case 6:
+			cursorMoveBy(RIGHT, 1);
+			break;
+		case 7:
+			cursorMoveBy(RIGHT, 1);
+			cursorMoveBy(UP, 1);
+			break;
+	}
+	cursorMoveBy(RIGHT, 1);
+	/*if(now % 2 == 0)
 		cursorMoveBy(UP, 1);
 	else
-		cursorMoveBy(DOWN, 1);
+		cursorMoveBy(DOWN, 1);*/
 	printf(" ");
 	modeReset();
 	cursorHome();
@@ -53,13 +86,16 @@ int main() {
 	while(run) {
 		update();
 		struct timespec t;
-		t.tv_nsec = 500,000,000;
-		t.tv_sec = 0;
-		nanosleep(&t, NULL);
+		//t.tv_nsec = 500,000,000;
+		//t.tv_sec = 0;
+		//nanosleep(&t, NULL);
+		sleep(1);
 	}
 
 	cursorShow();
 	screenRestore();
+
+	printf("Program ended with captured signal of id %i\n", pSigID);
 
     return 0;
 }
