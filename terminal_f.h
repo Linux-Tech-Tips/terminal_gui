@@ -1,54 +1,50 @@
 #ifndef ESC_FUNC_H
 #define ESC_FUNC_H
 
-/* Unique code constant declarations */
-extern const int NO_CODE;
-// FG COLORS
-extern const int FG_BLACK;
-extern const int FG_RED;
-extern const int FG_GREEN;
-extern const int FG_YELLOW;
-extern const int FG_BLUE;
-extern const int FG_MAGENTA;
-extern const int FG_CYAN;
-extern const int FG_WHITE;
-extern const int FG_DEFAULT;
-// BG COLORS
-extern const int BG_BLACK;
-extern const int BG_RED;
-extern const int BG_GREEN;
-extern const int BG_YELLOW;
-extern const int BG_BLUE;
-extern const int BG_MAGENTA;
-extern const int BG_CYAN;
-extern const int BG_WHITE;
-extern const int BG_DEFAULT;
-// STYLES
-extern const int STYLE_BOLD;
-extern const int STYLE_FAINT;
-extern const int STYLE_ITALIC;
-extern const int STYLE_UNDERLINE;
-extern const int STYLE_BLINKING;
-extern const int STYLE_REVERSE;
-extern const int STYLE_HIDDEN;
-extern const int STYLE_STRIKETHROUGH;
-// DIRECTIONS
-extern const char UP;
-extern const char DOWN;
-extern const char LEFT;
-extern const char RIGHT;
-// LINE ERASE TYPES
-extern const int LINE_TO_END;
-extern const int LINE_FROM_START;
-extern const int LINE_ALL;
+/* Escape code defines */
+#define ESCAPE "\x1b["
+#define ESCAPE_PURE "\x1b"
+#define NO_CODE -1
+// Foreground colors
+#define FG_BLACK 30
+#define FG_RED 31
+#define FG_GREEN 32
+#define FG_YELLOW 33
+#define FG_BLUE 34
+#define FG_MAGENTA 35
+#define FG_CYAN 36
+#define FG_WHITE 37
+#define FG_DEFAULT 39
+// Background colors
+#define BG_BLACK 40
+#define BG_RED 41
+#define BG_GREEN 42
+#define BG_YELLOW 43
+#define BG_BLUE 44
+#define BG_MAGENTA 45
+#define BG_CYAN 46
+#define BG_WHITE 47
+#define BG_DEFAULT 49
+// Styles
+#define STYLE_BOLD 1
+#define STYLE_FAINT 2
+#define STYLE_ITALIC 3
+#define STYLE_UNDERLINE 4
+#define STYLE_BLINKING 5
+#define STYLE_REVERSE 7
+#define STYLE_HIDDEN 8
+#define STYLE_STRIKETHROUGH 9
+// Directions
+#define UP 'A'
+#define DOWN 'B'
+#define LEFT 'D'
+#define RIGHT 'C'
+// Line erase options
+#define LINE_TO_END 0
+#define LINE_FROM_START 1
+#define LINE_ALL 2
 
 // TERMINAL FUNCTIONS
-
-/* Prints out the escape character into the console */
-void escape(bool withBracket);
-
-/* Prints out an escape sequence, starting with the escape character, then an open bracket, followed with the input text */
-void escape2(char * text);
 
 /* Resets all modes (styles and colors) */
 void modeReset();
