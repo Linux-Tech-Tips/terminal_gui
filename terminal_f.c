@@ -1,26 +1,31 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <termios.h>
 #include <unistd.h> // UNIX std library - not multiplatform
 #include <sys/ioctl.h>
 
 #include "terminal_f.h"
 
+// VARIABLES
+
+static struct termios oldTerm;
+
 // TERMINAL FUNCTIONS
 
 /* Resets all modes (styles and colors) */
 void modeReset() {
-    printf(ESCAPE "0m");
+	printf(ESCAPE "0m");
 }
 
 /* Sets the mode */
 void modeSet(int style, int fgColor, int bgColor) {
-    printf(ESCAPE);
-    if(style != NO_CODE) printf("%i", style);
-    printf(";");
-    if(fgColor != NO_CODE) printf("%i", fgColor);
-    if(bgColor != NO_CODE) printf(";%i", bgColor);
-    printf("m");
+	printf(ESCAPE);
+	if(style != NO_CODE) printf("%i", style);
+	printf(";");
+	if(fgColor != NO_CODE) printf("%i", fgColor);
+	if(bgColor != NO_CODE) printf(";%i", bgColor);
+	printf("m");
 }
 
 /* Sets a 256 color mode */
@@ -36,7 +41,7 @@ void erase() {
 
 /* Erases on the current line, according to the specified variable */
 void eraseLine(int lineType) {
-    printf(ESCAPE "%iK", lineType);
+	printf(ESCAPE "%iK", lineType);
 }
 
 /* Move cursor to home position (0,0) */
@@ -56,22 +61,36 @@ void cursorMoveBy(char dir, int amount) {
 
 /* Gets terminal dimensions from the kernel, works even if terminal window is resized */
 void getTerminalSize(int * x, int * y) {
-    struct winsize size;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-    *x = size.ws_col;
-    *y = size.ws_row;
+	struct winsize size;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+	*x = size.ws_col;
+	*y = size.ws_row;
+}
+
+/* Sets terminal options for unbuffered read */
+void startKeys() {
+	struct termios newTerm;
+	tcgetattr(STDIN_FILENO, &oldTerm);
+	newTerm = oldTerm;
+	newTerm.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSANOW, &newTerm);
+}
+
+/* Resets terminal options */
+void endKeys() {
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldTerm);
 }
 
 void cursorHide() {
-    printf(ESCAPE "?25l");
+	printf(ESCAPE "?25l");
 }
 void cursorShow() {
-    printf(ESCAPE "?25h");
+	printf(ESCAPE "?25h");
 }
 
 void screenSave() {
-    printf(ESCAPE "?47h");
+	printf(ESCAPE "?47h");
 }
 void screenRestore() {
-    printf(ESCAPE "?47l");
+	printf(ESCAPE "?47l");
 }

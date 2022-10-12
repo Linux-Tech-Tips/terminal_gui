@@ -20,6 +20,7 @@ void signalHandle(int sigID) {
 }
 
 void update() {
+	char c = getchar(); // TODO Fix, blocks until character is read
 	erase();
 	int termX, termY;
 	getTerminalSize(&termX, &termY);
@@ -68,6 +69,9 @@ void update() {
 	modeReset();
 	cursorHome();
 	printf("Current time: %i", now);
+	cursorHome();
+	cursorMoveBy(DOWN, 1);
+	printf("Read character: %c", c);
 	fflush(stdout);
 }
 
@@ -82,6 +86,7 @@ int main() {
 	screenSave();
 	erase();
 	cursorHide();
+	startKeys();
 
 	while(run) {
 		update();
@@ -94,6 +99,7 @@ int main() {
 
 	cursorShow();
 	screenRestore();
+	endKeys();
 
 	printf("Program ended with captured signal of id %i\n", pSigID);
 

@@ -73,6 +73,12 @@ void cursorMoveBy(char dir, int amount);
 /* Gets terminal dimensions from the kernel, works even if terminal window is resized */
 void getTerminalSize(int * x, int * y);
 
+/* Sets terminal options for unbuffered read */
+void startKeys();
+
+/* Resets terminal options */
+void endKeys();
+
 void cursorHide();
 void cursorShow();
 
