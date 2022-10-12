@@ -20,7 +20,8 @@ void signalHandle(int sigID) {
 }
 
 void update() {
-	char c = getchar(); // TODO Fix, blocks until character is read
+	char c = nbRead();
+	if(c == 'q') run = false;
 	erase();
 	int termX, termY;
 	getTerminalSize(&termX, &termY);

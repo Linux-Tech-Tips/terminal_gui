@@ -76,6 +76,9 @@ void getTerminalSize(int * x, int * y);
 /* Sets terminal options for unbuffered read */
 void startKeys();
 
+/* Non-blocking character read, needs startKeys to be called first */
+char nbRead();
+
 /* Resets terminal options */
 void endKeys();
 

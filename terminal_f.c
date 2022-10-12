@@ -4,6 +4,7 @@
 #include <termios.h>
 #include <unistd.h> // UNIX std library - not multiplatform
 #include <sys/ioctl.h>
+#include <poll.h>
 
 #include "terminal_f.h"
 
@@ -74,6 +75,20 @@ void startKeys() {
 	newTerm = oldTerm;
 	newTerm.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &newTerm);
+}
+
+/* Non-blocking character read, needs startKeys to be called first */
+char nbRead() {
+	struct pollfd fds;
+	fds.fd = 1;
+	fds.events = POLLIN;
+	int ready = poll(&fds, 1, 0);
+	int c = 0;
+	if(ready > 0) {
+		fflush(stdin);
+		c = getchar();
+	} // TODO Use something else to get whole line or full stdin content
+	return c;
 }
 
 /* Resets terminal options */
