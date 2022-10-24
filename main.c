@@ -20,8 +20,8 @@ void signalHandle(int sigID) {
 }
 
 void update() {
-	char c = nbRead();
-	if(c == 'q') run = false;
+	char * c = nbRead(3);
+	if(*c == 'q') run = false;
 	erase();
 	int termX, termY;
 	getTerminalSize(&termX, &termY);
@@ -72,7 +72,8 @@ void update() {
 	printf("Current time: %i", now);
 	cursorHome();
 	cursorMoveBy(DOWN, 1);
-	printf("Read character: %c", c);
+	printf("Read character: %s", c);
+	free(c);
 	fflush(stdout);
 }
 
