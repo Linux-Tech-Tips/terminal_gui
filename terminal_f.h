@@ -53,7 +53,7 @@ void modeReset();
 void modeSet(int style, int fgColor, int bgColor);
 
 /* Sets a 256 color mode */
-void mode256Color(bool bg, int colorCode);
+void mode256Color(int bg, int colorCode);
 
 /* Erases the screen */
 void erase();
@@ -77,7 +77,7 @@ void getTerminalSize(int * x, int * y);
 void startKeys();
 
 /* Non-blocking character read, needs startKeys to be called first */
-char * nbRead(size_t maxToRead);
+void nbRead(char * buffer, size_t maxToRead);
 
 /* Resets terminal options */
 void endKeys();

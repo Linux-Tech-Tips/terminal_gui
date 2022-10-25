@@ -20,7 +20,8 @@ void signalHandle(int sigID) {
 }
 
 void update() {
-	char * c = nbRead(3);
+	char * c = (char *) malloc(3 * sizeof(char));
+	nbRead(c, 3);
 	if(*c == 'q') run = false;
 	erase();
 	int termX, termY;
@@ -69,7 +70,7 @@ void update() {
 	printf(" ");
 	modeReset();
 	cursorHome();
-	printf("Current time: %i", now);
+	printf("Current time: %i", (int) now);
 	cursorHome();
 	cursorMoveBy(DOWN, 1);
 	printf("Read character: %s", c);

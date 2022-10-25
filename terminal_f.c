@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <termios.h>
 #include <unistd.h> // UNIX std library - not multiplatform
@@ -30,7 +29,7 @@ void modeSet(int style, int fgColor, int bgColor) {
 }
 
 /* Sets a 256 color mode */
-void mode256Color(bool bg, int colorCode) {
+void mode256Color(int bg, int colorCode) {
 	int mode = bg ? 48 : 38;
 	printf(ESCAPE "%i;5;%im", mode, colorCode);
 }
@@ -78,21 +77,19 @@ void startKeys() {
 }
 
 /* Non-blocking character read, needs startKeys to be called first */
-char * nbRead(size_t maxToRead) {
+void nbRead(char * buffer, size_t maxToRead) {
 	struct pollfd fds;
 	fds.fd = 1;
 	fds.events = POLLIN;
 	int ready = poll(&fds, 1, 0);
 	char c;
-	char * result = (char *) malloc(maxToRead * sizeof(char));
 	int r = 0;
 	while(ready > 0 && read(STDIN_FILENO, &c, 1) > 0) {
 		if(r < maxToRead)
-			result[r] = c;
+			buffer[r] = c;
 		ready = poll(&fds, 1, 0);
 		++r;
 	}
-	return result;
 }
 
 /* Resets terminal options */
