@@ -83,8 +83,7 @@ int main() {
 	signal(SIGINT, signalHandle);
 	fflush(stdout);
 
-	// Simple program for now, works until ctrl+c is pressed
-	// TODO Next implement catching keyboard logs
+	// Simple program for now to demonstrate features (and flickering lol)
 
 	screenSave();
 	erase();
@@ -94,10 +93,10 @@ int main() {
 	while(run) {
 		update();
 		struct timespec t;
-		//t.tv_nsec = 500,000,000;
-		//t.tv_sec = 0;
-		//nanosleep(&t, NULL);
-		sleep(1);
+		t.tv_nsec = 5,000,000,000;
+		t.tv_sec = 0;
+		nanosleep(&t, NULL);
+		//sleep(1);
 	}
 
 	cursorShow();
