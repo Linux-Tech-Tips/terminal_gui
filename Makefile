@@ -2,6 +2,12 @@ CC=gcc
 LN=gcc
 BUILD_DIR=build
 
+CFLAGS=
+ifeq ($(DEBUG), address)
+	CFLAGS+=-fsanitize=address
+	CFLAGS+=-g
+endif
+
 SRC=main.c
 SRC+=terminal_f.c
 
@@ -13,13 +19,13 @@ OBJ=$(SRC:%=$(BUILD_DIR)/%.o)
 all: dirs compile link
 
 $(OUTFILE): $(OBJ)
-	$(CC) $^ -o $@ -lm
+	$(LN) $(CFLAGS) $^ -o $@ -lm
 
 $(BUILD_DIR)/%.c.o: %.c
-	$(CC) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 
-.PHONY: dirs, compile, link, disassemble, clean
+.PHONY: dirs, compile, link, disassemble, clean, help
 dirs:
 	mkdir -p $(BUILD_DIR)
 
@@ -34,3 +40,10 @@ clean:
 	rm -r $(BUILD_DIR)
 	rm -f $(OUTFILE)
 	rm -f $(ASMFILE)
+
+help:
+	@echo "Terminal GUI demo help"
+	@echo "  Usage: make [options] [targets]"
+	@echo "    targets: all | dirs | compile | link | disassemble | clean | help"
+	@echo "    options:"
+	@echo "        DEBUG=address (address sanitizer)"

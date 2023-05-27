@@ -77,7 +77,7 @@ void getTerminalSize(int * x, int * y);
 void startKeys();
 
 /* Non-blocking character read, needs startKeys to be called first */
-void nbRead(char * buffer, size_t maxToRead);
+bool nbRead(char * buffer, size_t maxToRead);
 
 /* Resets terminal options */
 void endKeys();

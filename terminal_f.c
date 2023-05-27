@@ -4,6 +4,7 @@
 #include <unistd.h> // UNIX std library - not multiplatform
 #include <sys/ioctl.h>
 #include <poll.h>
+#include <stdbool.h>
 
 #include "terminal_f.h"
 
@@ -76,8 +77,9 @@ void startKeys() {
 	tcsetattr(STDIN_FILENO, TCSANOW, &newTerm);
 }
 
-/* Non-blocking character read, needs startKeys to be called first */
-void nbRead(char * buffer, size_t maxToRead) {
+/* Non-blocking character read, needs startKeys to be called first, returns whether any characters read */
+bool nbRead(char * buffer, size_t maxToRead) {
+	bool result = 0;
 	struct pollfd fds;
 	fds.fd = 1;
 	fds.events = POLLIN;
@@ -85,11 +87,13 @@ void nbRead(char * buffer, size_t maxToRead) {
 	char c;
 	int r = 0;
 	while(ready > 0 && read(STDIN_FILENO, &c, 1) > 0) {
+		result = 1;
 		if(r < maxToRead)
 			buffer[r] = c;
 		ready = poll(&fds, 1, 0);
 		++r;
 	}
+	return result;
 }
 
 /* Resets terminal options */
