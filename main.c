@@ -120,14 +120,7 @@ int main() {
 		struct timespec t = {};
 		t.tv_nsec = 100000000;
 		t.tv_sec = 0;
-		//t.tv_nsec = 0;
-		//t.tv_sec = 1;
-
-		struct timespec tr = {};
-
-		int res = nanosleep(&t, &tr);
-		printf("\nTime remaining: %i s, %i ns; response: %i", tr.tv_sec, tr.tv_nsec, res);
-		//sleep(1);
+		nanosleep(&t, NULL);
 	}
 
 	cursorShow();
