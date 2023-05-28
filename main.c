@@ -14,18 +14,27 @@ static volatile bool run = true;
 
 static int pSigID;
 
+static short showDebug = 0;
+
 void signalHandle(int sigID) {
 	pSigID = sigID;
 	run = false;
 }
 
 void update() {
-	//char * c = (char *) malloc(3 * sizeof(char));
-	char c [4];
+	char c [4] = {};
 	short res = nbRead(c, 3);
-	c[3] = '\0';
-	if(*c == 'q') run = false;
-	//erase();
+	if(c[0] == 'q' || c[1] == 'q' || c[2] == 'q') run = false;
+
+	if(c[0] == 'c' || c[1] == 'c' || c[2] == 'c') showDebug = 1;
+	if(c[0] == 'v' || c[1] == 'v' || c[2] == 'v') showDebug = 0;
+
+	cursorHome();
+	modeReset();
+	cursorMoveBy(DOWN, 4);
+	if(showDebug) printf("DEBUG");
+	else printf("     ");
+
 	int termX, termY;
 	getTerminalSize(&termX, &termY);
 
@@ -108,10 +117,16 @@ int main() {
 
 	while(run) {
 		update();
-		struct timespec t;
-		t.tv_nsec = 500,000,000;
+		struct timespec t = {};
+		t.tv_nsec = 100000000;
 		t.tv_sec = 0;
-		nanosleep(&t, NULL);
+		//t.tv_nsec = 0;
+		//t.tv_sec = 1;
+
+		struct timespec tr = {};
+
+		int res = nanosleep(&t, &tr);
+		printf("\nTime remaining: %i s, %i ns; response: %i", tr.tv_sec, tr.tv_nsec, res);
 		//sleep(1);
 	}
 

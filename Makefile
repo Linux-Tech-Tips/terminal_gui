@@ -25,13 +25,16 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 
-.PHONY: dirs, compile, link, disassemble, clean, help
+.PHONY: dirs, compile, link, run, disassemble, clean, help
 dirs:
 	mkdir -p $(BUILD_DIR)
 
 compile: $(OBJ)
 
 link: $(OUTFILE)
+
+run:
+	./$(OUTFILE)
 
 disassemble:
 	objdump -d $(OUTFILE) > $(ASMFILE)
