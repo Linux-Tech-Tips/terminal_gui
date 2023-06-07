@@ -54,3 +54,5 @@ dkms.conf
 # Others
 *.code-workspace
 *.asmdump
+.vscode
+
