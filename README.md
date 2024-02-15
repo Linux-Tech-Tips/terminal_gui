@@ -6,6 +6,12 @@ UNIX only, because the UNIX C standard library unistd.h is used.
 
 ANSI Escape sequence reference is [available here](https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797).
 
+## Branch details
+
+The 'main' branch contains only the header file and C implementation file, so that this repo can be cloned into projects using it as a module.
+
+To see a practical example of the header in use, check out the 'demo' branch, with a *main.c* with a short demonstration program, and a Makefile to build the executable.
+
 ## Usage guidelines
 
 All function declarations include comments describing the usage and functionality.
