@@ -16,8 +16,8 @@ void modeSet(int style, int fgColor, int bgColor) {
 	/* Printing style code if desired */
 	if(style != NO_CODE) printf("%i", style);
 	printf(";");
-	/* Printing foreground color code if desired */
-	if(fgColor != NO_CODE) printf("%i", fgColor);
+	/* Printing foreground color code if desired (shifting by 10 to account for the code difference) */
+	if(fgColor != NO_CODE) printf("%i", (fgColor-10));
 	/* Printing background color code if desired */
 	if(bgColor != NO_CODE) printf(";%i", bgColor);
 	printf("m");
@@ -46,7 +46,9 @@ void cursorMoveTo(int column, int line) {
 }
 
 void cursorMoveBy(char dir, int amount) {
-	printf(ESCAPE "%i%c", amount, dir);
+	/* Checking if there's any amount to move by, to prevent the escape code from moving the cursor by 1 even if 0 specified */
+	if(amount > 0)
+		printf(ESCAPE "%i%c", amount, dir);
 }
 
 void getTerminalSize(int * x, int * y) {
