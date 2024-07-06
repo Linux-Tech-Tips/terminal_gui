@@ -2,7 +2,7 @@ CC=gcc
 LN=gcc
 BUILD_DIR=build
 
-CFLAGS=
+CFLAGS=-Wall -Wextra -Wstrict-prototypes -pedantic -std=gnu99
 ifeq ($(DEBUG), address)
 	CFLAGS+=-fsanitize=address
 	CFLAGS+=-g

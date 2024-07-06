@@ -21,8 +21,8 @@ void signalHandle(int sigID) {
 	run = false;
 }
 
-void update() {
-	char c [4] = {};
+void update(void) {
+	char c [4] = {0};
 	short res = nbRead(c, 3);
 	if(c[0] == 'q' || c[1] == 'q' || c[2] == 'q') run = false;
 
@@ -103,7 +103,7 @@ void update() {
 	fflush(stdout);
 }
 
-int main() {
+int main(void) {
 
 	signal(SIGINT, signalHandle);
 	fflush(stdout);
@@ -117,7 +117,7 @@ int main() {
 
 	while(run) {
 		update();
-		struct timespec t = {};
+		struct timespec t = {0};
 		t.tv_nsec = 100000000;
 		t.tv_sec = 0;
 		nanosleep(&t, NULL);
