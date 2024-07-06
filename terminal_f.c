@@ -107,3 +107,4 @@ void screenSave() {
 void screenRestore() {
 	printf(ESCAPE "?47l");
 }
+
