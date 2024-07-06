@@ -82,7 +82,7 @@ short nbRead(char * buffer, size_t maxToRead) {
 	/* Using the poll() system function to see if any characters ready to be read in STDIN */
 	int ready = poll(&fds, 1, 0);
 	char c;
-	int r = 0;
+	size_t r = 0;
 	/* Reading from stdin into buffer until no longer ready or EOF reached */
 	while(ready > 0 && read(STDIN_FILENO, &c, 1) > 0) {
 		result = 1;
