@@ -43,7 +43,7 @@ void update() {
 	// Clearing circle in the middle - only clearing what needs to be cleared prevents flicker
 	cursorHome();
 	cursorMoveTo(termX/2, termY/2);
-	modeSet(NO_CODE, FG_DEFAULT, BG_DEFAULT);
+	modeSet(NO_CODE, COLOR_DEFAULT, COLOR_DEFAULT);
 	cursorMoveBy(UP, 1);
 	cursorMoveBy(LEFT, 1);
 	printf("   ");
@@ -57,7 +57,7 @@ void update() {
 	// Rendering only the current part of the circle, based on the time
 	cursorHome();
 	cursorMoveTo(termX/2, termY/2);
-	modeSet(NO_CODE, NO_CODE, BG_RED);
+	modeSet(NO_CODE, NO_CODE, COLOR_RED);
 	switch(now % 8) {
 		case 0:
 			cursorMoveBy(UP, 1);
