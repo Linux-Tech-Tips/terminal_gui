@@ -59,7 +59,7 @@
 /* === TERMINAL FUNCTIONS === */
 
 /** Resets all modes (styles and colors) */
-void modeReset();
+void modeReset(void);
 
 /** Sets the mode of the cursor to the selected style, foreground and background colors */
 void modeSet(int style, int fgColor, int bgColor);
@@ -70,7 +70,7 @@ void modeSet(int style, int fgColor, int bgColor);
 void mode256Color(int bg, int colorCode);
 
 /** Erases the screen */
-void erase();
+void erase(void);
 
 /** Erases characters on the current line based on the provided line type 
  *  @param lineType recommended to use the provided constants: LINE_TO_END | LINE_FROM_START | LINE_ALL
@@ -78,7 +78,7 @@ void erase();
 void eraseLine(int lineType);
 
 /** Move the cursor to the home position (0,0) */
-void cursorHome();
+void cursorHome(void);
 
 /** Move the cursor to the specified column and line (x, y) */
 void cursorMoveTo(int column, int line);
@@ -92,10 +92,10 @@ void cursorMoveBy(char dir, int amount);
 void getTerminalSize(int * x, int * y);
 
 /** Sets the required terminal options for non-blocking read */
-void startKeys();
+void startKeys(void);
 
 /** Resets the terminal options from non-blocking read back to normal */
-void endKeys();
+void endKeys(void);
 
 /** Non-blocking character read, reads keyboard input asynchronously while the program is running in the terminal 
  * Before using this function, set the required settings using the startKeys() function. Afterwards, reset the options using endKeys()
@@ -104,13 +104,14 @@ void endKeys();
 short nbRead(char * buffer, size_t maxToRead);
 
 /** Sets the cursor to be invisible */
-void cursorHide();
+void cursorHide(void);
 /** Sets the cursor to be visible */
-void cursorShow();
+void cursorShow(void);
 
 /** Saves the current state and options of the terminal */
-void screenSave();
+void screenSave(void);
 /** Resets the current state and options of the terminal */
-void screenRestore();
+void screenRestore(void);
 
 #endif
+
